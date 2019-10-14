@@ -5,6 +5,8 @@
   "main": "index.js",
   "dependencies": {
     "express": "^4.17.1",
+    "nodemon": "^1.19.3",
+    "path": "^0.12.7",
     "react": "^16.10.2",
     "react-dom": "^16.10.2"
   },
@@ -17,7 +19,8 @@
     "webpack-cli": "^3.3.9"
   },
   "scripts": {
-    "build:dev": "webpack --watch -development"
+    "build:dev": "webpack --watch --mode development",
+    "server:dev": "nodemon ./server/server.js"
   },
   "repository": {
     "type": "git",
