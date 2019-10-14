@@ -1,0 +1,32 @@
+{
+  "name": "project-notify",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/preset-env": "^7.6.3",
+    "@babel/preset-react": "^7.6.3",
+    "babel-loader": "^8.0.6",
+    "webpack": "^4.41.1",
+    "webpack-cli": "^3.3.9"
+  },
+  "scripts": {
+    "build:dev": "webpack --watch -development"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Weswwn/project-notify.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Weswwn/project-notify/issues"
+  },
+  "homepage": "https://github.com/Weswwn/project-notify#readme"
+}
