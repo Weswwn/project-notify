@@ -7,17 +7,14 @@ class App extends React.Component {
         this.state = {
             formSubmmited: false
         }
-        this.handleSubmit = this.handleSubmit.bind(this);
+        
     }
 
-    handleSubmit(e) {
-        e.preventDefault();
-        console.log(e.target.value);
-    }
+    
     render() {
         return (
             <div id="container">
-                { !this.state.formSubmmited ? <Form handleSubmit={this.handleSubmit}/> : null }
+                { !this.state.formSubmmited ? <Form /> : null }
             </div>
         )
     }
