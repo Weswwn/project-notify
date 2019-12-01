@@ -7,13 +7,12 @@ class App extends React.Component {
         this.state = {
             formSubmmited: false
         }
-        
     }
 
     
     render() {
         return (
-            <div id="container">
+            <div className="container">
                 { !this.state.formSubmmited ? <Form /> : null }
             </div>
         )
