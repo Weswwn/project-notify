@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const { checkIfNumberExists, checkIfCourseIsValid,
         registerNumber } = require('../database/controller.js');
 const port = 3000;
+const checkDatabase = require('../database/courseCheck.js');
 
 app.use(express.static('public'));
 app.use(express.json());
@@ -14,7 +15,6 @@ app.post('/api/webscrape' , (req, res) => {
   checkIfCourseIsValid(req.body)
     .then((response) => {
       if (response === true) {
-        console.log('hi');  
         return checkIfNumberExists(req.body)
       } else if (response === 'NotEmpty') {
         console.log('check2');
@@ -38,10 +38,10 @@ app.post('/api/webscrape' , (req, res) => {
     })
     // Register number then and catch block
     .then((response) => {
-
+      res.send(response);
     })
     .catch((error) => {
-      
+      res.send(error);
     })
 })
 

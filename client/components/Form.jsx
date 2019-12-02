@@ -14,6 +14,7 @@ class Form extends React.Component {
       courseNotValid: false,
       alreadyRegistered: false,
       courseFull: false,
+      success: false
     }
     this.handleOnChange = this.handleOnChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -69,12 +70,22 @@ class Form extends React.Component {
     .then((response) => {
       if (response.data === 'NotEmpty') {
         this.setState({
-          courseFull: true
+          courseFull: true,
+          success: false
         })
       }
       if (response.data === 'alreadyRegistered') {
         this.setState({
-          alreadyRegistered: true
+          alreadyRegistered: true,
+          success: false
+        })
+      }
+      if (response.data.rowCount === 1) {
+        this.setState({
+          courseFull: false,
+          courseNotValid: false,
+          alreadyRegistered: false,
+          success: true
         })
       }
     })
@@ -110,9 +121,9 @@ class Form extends React.Component {
           <div>
             {this.state.courseFull ? 'The course is not full!' : null}
           </div>
-          <input type="text" onChange={this.handleOnChange} id="subject" name="Subject Code" placeholder="COMM" maxLength="4" />
-          <input type="text" onChange={this.handleOnChange} id="course" name="Course Number" placeholder="101" maxLength="4" />
-          <input type="text" onChange={this.handleOnChange} id="section" name="Course Section" placeholder="100" maxLength="4" />
+          <input type="text" onChange={this.handleOnChange} id="subject" name="Subject Code" placeholder="COMM" required maxLength="4" />
+          <input type="text" onChange={this.handleOnChange} id="course" name="Course Number" placeholder="101" required maxLength="4" />
+          <input type="text" onChange={this.handleOnChange} id="section" name="Course Section" placeholder="100" required maxLength="4" />
 
           <br/>
           General Seats: <input onClick={this.onClick} type="checkbox" name="seat" id="generalSeats"/>
@@ -129,7 +140,7 @@ class Form extends React.Component {
             {this.state.alreadyRegistered ? 'You have already registered!' : null}
           </div>
           <label id="phoneNumber">Phone Number: </label>
-          <input type="text" onChange={this.handleOnChange} id="phoneNumber" name="phoneNumbertext" placeholder="7781234567" maxLength="10" />
+          <input type="text" onChange={this.handleOnChange} id="phoneNumber" name="phoneNumbertext" placeholder="7781234567" required minLength="10" />
           </center>
         </div>
 
@@ -137,6 +148,9 @@ class Form extends React.Component {
           <br/>
           <center>
           <input id="submitButton" type="submit"/>
+          <div>
+            {this.state.success ? 'You have been registered! Expected a text when the course opens up!': null}
+          </div>
           </center>
         </div>
 
