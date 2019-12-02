@@ -12,6 +12,16 @@ app.use(express.urlencoded({extended: true}));
 app.post('/api/webscrape' , (req, res) => {
   checkIfCourseIsValid(req.body)
     .then((response) => {
+      if (response === true) {
+        return checkIfNumberExists(req.body)
+      } else if (response === 'NotEmpty') {
+        res.send(response);
+      }
+    })
+    .catch((error) => {
+      res.status(400).send(error);
+    })
+    .then((response) => {
       res.send(response);
     })
     .catch((error) => {

@@ -9,7 +9,8 @@ class Form extends React.Component {
       course: '',
       section: '',
       generalSeat: false,
-      restrictedSeat: false
+      restrictedSeat: false,
+      phoneNumber: ''
     }
     this.handleOnChange = this.handleOnChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -31,21 +32,37 @@ class Form extends React.Component {
         section: e.target.value
       })
     }
+    if (e.target.id === 'phoneNumber') {
+      this.setState({
+        phoneNumber: Number(e.target.value)
+      })
+    }
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    let { subject, course, section, generalSeat, restrictedSeat } = this.state;
+    let { subject, course, section, generalSeat, restrictedSeat, phoneNumber } = this.state;
     let data = {
       subject: subject,
       course: course,
       section: section,
       generalSeat: generalSeat,
-      restrictedSeat: restrictedSeat
+      restrictedSeat: restrictedSeat,
+      phoneNumber: phoneNumber
     }
     console.log(data);
     axios.post('/api/webscrape', {
       data: data
+    })
+    .then((response) => {
+      if (response.data === 'alreadyRegistered') {
+        alert('You have already registered for this course');
+      } else if (response.data === 'NotEmpty') {
+        alert('The course is not empty!');
+      }
+    })
+    .catch((error) => {
+      console.log(error);
     })
   }
   
@@ -84,7 +101,7 @@ class Form extends React.Component {
           <center>
           <h2>Step 2: Provide your Phone Number</h2>
           <label id="phoneNumber">Phone Number: </label>
-          <input type="text" id="phoneNumbertext" name="phoneNumbertext" placeholder="7781234567" maxLength="10" />
+          <input type="text" onChange={this.handleOnChange} id="phoneNumber" name="phoneNumbertext" placeholder="7781234567" maxLength="10" />
           </center>
         </div>
 
