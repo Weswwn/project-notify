@@ -16,7 +16,6 @@ class Form extends React.Component {
     this.onClick = this.onClick.bind(this);
   }
   handleOnChange(e) {  
-    console.log(this);
     if (e.target.id === 'subject') {
       this.setState({
         subject: e.target.value.toUpperCase()
@@ -36,10 +35,21 @@ class Form extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    let { subject, course, section, generalSeat, restrictedSeat } = this.state;
+    let data = {
+      subject: subject,
+      course: course,
+      section: section,
+      generalSeat: generalSeat,
+      restrictedSeat: restrictedSeat
+    }
+    console.log(data);
+    axios.post('/api/webscrape', {
+      data: data
+    })
   }
   
   onClick(e) {
-    console.log(e.target.id)
     if (e.target.id === 'generalSeats') {
       this.setState(prevState => ({
         generalSeat: !prevState.generalSeat
