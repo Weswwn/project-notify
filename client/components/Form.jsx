@@ -41,7 +41,8 @@ class Form extends React.Component {
         phoneNumber: Number(e.target.value)
       })
     }
-    if (subject.length === 0 || course.length === 0 || section.length === 0) {
+    if (subject.length === 0 || course.length === 0 || section.length === 0
+      || phoneNumber.length === 0) {
       this.setState({
         courseFull: false,
         courseNotValid: false,
@@ -66,19 +67,20 @@ class Form extends React.Component {
       data: data
     })
     .then((response) => {
+      if (response.data === 'NotEmpty') {
+        this.setState({
+          courseFull: true
+        })
+      }
       if (response.data === 'alreadyRegistered') {
         this.setState({
           alreadyRegistered: true
-        })
-      } else if (response.data === 'NotEmpty') {
-        this.setState({
-          courseFull: true
         })
       }
     })
     .catch((error) => {
       this.setState({
-        courseNotValid: true
+        courseNotValid: true,
       })
     })
   }

@@ -14,24 +14,34 @@ app.post('/api/webscrape' , (req, res) => {
   checkIfCourseIsValid(req.body)
     .then((response) => {
       if (response === true) {
+        console.log('hi');  
         return checkIfNumberExists(req.body)
       } else if (response === 'NotEmpty') {
+        console.log('check2');
         res.send(response);
       }
     })
     .catch((error) => {
       res.status(400).send(error);
     })
+    // Check if Course is valid then and catch block
     .then((response) => {
       if (response === 'alreadyRegistered') {
         res.send(response);
       }
-      // Since course is valid, IS empty, and user has NOT
-      // already registered, we can now insert them into the db
-      registerNumber(req.body)
+      if (response === true) {
+        return registerNumber(req.body);
+      }
     })
     .catch((error) => {
-      res.status(400).send(error);
+      res.send(error);
+    })
+    // Register number then and catch block
+    .then((response) => {
+
+    })
+    .catch((error) => {
+      
     })
 })
 
