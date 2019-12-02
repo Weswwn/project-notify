@@ -1,7 +1,8 @@
 const express = require('express')
 const app = express()
 const morgan = require('morgan');
-const { checkIfNumberExists, checkIfCourseIsValid } = require('../database/controller.js');
+const { checkIfNumberExists, checkIfCourseIsValid,
+        registerNumber } = require('../database/controller.js');
 const port = 3000;
 
 app.use(express.static('public'));
@@ -22,7 +23,12 @@ app.post('/api/webscrape' , (req, res) => {
       res.status(400).send(error);
     })
     .then((response) => {
-      res.send(response);
+      if (response === 'alreadyRegistered') {
+        res.send(response);
+      }
+      // Since course is valid, IS empty, and user has NOT
+      // already registered, we can now insert them into the db
+      registerNumber(req.body)
     })
     .catch((error) => {
       res.status(400).send(error);

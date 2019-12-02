@@ -69,7 +69,29 @@ let checkIfNumberExists = (userFormData) => {
   })
 }
 
+let registerNumber = (userFormData) => {
+  return new Promise((resolve, reject) => {
+    let queryString = 
+    'INSERT INTO course(subject_code, course_number, section_number, phone_number) VALUES($1, $2, $3, $4)';
+    let { subject, course, section, generalSeat, restrictedSeat, phoneNumber } = userFormData.data
+    pool
+    .connect()
+    .then(client => {
+      return client
+        .query(queryString, [subject, course, section, phoneNumber])
+        .then(res => {
+          resolve(res);
+        })
+        .catch(e => {
+          client.release()
+          reject(e.stack);
+        })
+      })
+  })
+}
+
 module.exports = {
   checkIfNumberExists: checkIfNumberExists,
-  checkIfCourseIsValid: checkIfCourseIsValid
+  checkIfCourseIsValid: checkIfCourseIsValid,
+  registerNumber: registerNumber
 }
