@@ -1,6 +1,6 @@
 const {pool} = require('../database/index.js');
 const axios = require('axios');
-const sendNotifications = require('./sendNotifications.js');
+const { sendNotifications } = require('./sendNotifications.js');
 
 setInterval(function() {
     console.log('invoked');
@@ -12,7 +12,7 @@ setInterval(function() {
         return client
           .query(queryString)
           .then(res => {
-            client.release()
+            // client.release()
             if (res.rows.length > 0) {
               console.log(res.rows);
               sendNotifications(res.rows)
@@ -23,6 +23,6 @@ setInterval(function() {
             console.log(e.stack);
           })
       })
-}, 30000)
+}, 10000)
 
 // module.exports.checkDatabase = checkDatabase;

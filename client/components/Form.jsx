@@ -1,6 +1,10 @@
 import React from 'react';
 import axios from 'axios';
+import styled from 'styled-components';
 
+const NotificationStyle = styled.div`
+  color: red;
+`
 class Form extends React.Component {
   constructor(props) {
     super(props)
@@ -115,12 +119,12 @@ class Form extends React.Component {
         <div className="FirstStep">
         <center>
           <h2>Step 1: Enter the course you want to track</h2>
-          <div>
+          <NotificationStyle>
             {this.state.courseNotValid ? 'The course you have added is not valid! Try Again.' : null}
-          </div>
-          <div>
+          </NotificationStyle>
+          <NotificationStyle>
             {this.state.courseFull ? 'The course is not full!' : null}
-          </div>
+          </NotificationStyle>
           <input type="text" onChange={this.handleOnChange} id="subject" name="Subject Code" placeholder="COMM" required maxLength="4" />
           <input type="text" onChange={this.handleOnChange} id="course" name="Course Number" placeholder="101" required maxLength="4" />
           <input type="text" onChange={this.handleOnChange} id="section" name="Course Section" placeholder="100" required maxLength="4" />
@@ -136,9 +140,9 @@ class Form extends React.Component {
           <br/>
           <center>
           <h2>Step 2: Provide your Phone Number</h2>
-          <div>
+          <NotificationStyle>
             {this.state.alreadyRegistered ? 'You have already registered!' : null}
-          </div>
+          </NotificationStyle>
           <label id="phoneNumber">Phone Number: </label>
           <input type="text" onChange={this.handleOnChange} id="phoneNumber" name="phoneNumbertext" placeholder="7781234567" required minLength="10" />
           </center>
@@ -148,9 +152,9 @@ class Form extends React.Component {
           <br/>
           <center>
           <input id="submitButton" type="submit"/>
-          <div>
+          <NotificationStyle>
             {this.state.success ? 'You have been registered! Expected a text when the course opens up!': null}
-          </div>
+          </NotificationStyle>
           </center>
         </div>
 
