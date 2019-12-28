@@ -2,9 +2,9 @@ const express = require('express')
 const app = express()
 const morgan = require('morgan');
 const { checkIfNumberExists, checkIfCourseIsValid,
-        registerNumber } = require('../database/controller.js');
+        registerNumber } = require('./controller.js');
 const port = 3000;
-const checkDatabase = require('../database/courseCheck.js');
+const checkDatabase = require('./courseCheck.js');
 
 app.use(express.static('public'));
 app.use(express.json());
