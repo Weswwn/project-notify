@@ -2,9 +2,9 @@ const {pool} = require('../database/index.js');
 const cheerio = require('cheerio');
 const axios = require('axios');
 
-let checkIfCourseIsValid = (userFormData) => {
+const checkIfCourseIsValid = (userFormData) => {
   return new Promise((resolve, reject) => {
-    let { subject, course, section, generalSeat, restrictedSeat, phoneNumber } = userFormData.data
+    const { subject, course, section, generalSeat, restrictedSeat, phoneNumber } = userFormData.data
     axios.get(`https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-section&dept=${subject}&course=${course}&section=${section}`, {
       params: {
         generalSeat: generalSeat,
@@ -43,7 +43,7 @@ let checkIfCourseIsValid = (userFormData) => {
   })
 }
 
-let checkIfNumberExists = (userFormData) => {
+const checkIfNumberExists = (userFormData) => {
   return new Promise((resolve, reject) => {
     let queryString = 
     'SELECT * FROM course WHERE phone_number = $1 AND subject_code = $2 AND course_number = $3 AND section_number = $4';
@@ -69,7 +69,7 @@ let checkIfNumberExists = (userFormData) => {
   })
 }
 
-let registerNumber = (userFormData) => {
+const registerNumber = (userFormData) => {
   return new Promise((resolve, reject) => {
     let queryString = 
     'INSERT INTO course(subject_code, course_number, section_number, phone_number) VALUES($1, $2, $3, $4)';
