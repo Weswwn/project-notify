@@ -17,14 +17,13 @@ app.post('/api/webscrape' , (req, res) => {
       if (response === true) {
         return checkIfNumberExists(req.body)
       } else if (response === 'NotEmpty') {
-        console.log('check2');
         res.send(response);
       }
     })
     .catch((error) => {
       res.status(400).send(error);
     })
-    // Check if Course is valid then and catch block
+    // Check if NumberExists is valid then and catch block
     .then((response) => {
       if (response === 'alreadyRegistered') {
         res.send(response);
