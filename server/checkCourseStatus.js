@@ -16,10 +16,12 @@ const checkCourseStatus = (courseArray) => {
 
         // Check if the course being requested is actually empty
         $('td strong').each(function(i, e) {
-          if (i === 0 && $(this).text() !== '0') {
+          if (i === 0 && $(this).text() != '0') {
             console.log('empty', $(this).text());
-            sendNotification(subject, courseNum, section);
+            queryListOfNumbersForCourse(subject, courseNum, section);
             return;
+          } else if (i === 0 && $(this).text() == '0') {
+            console.log(i, 'Is still full');
           }
         })  
     })
@@ -29,7 +31,7 @@ const checkCourseStatus = (courseArray) => {
   })
 }
 
-const sendNotification = (subject, courseNum, section) => {
+const queryListOfNumbersForCourse = (subject, courseNum, section) => {
   axios.get('/api/getCourses' , {
     params: {
       subject_code: subject,
@@ -38,10 +40,10 @@ const sendNotification = (subject, courseNum, section) => {
     }
   })
   .then((response) => {
-
+    console.log('check', response);
   })
   .catch((error) => {
-    
+    console.log('From sendNotifications', error);
   })
 }
 
