@@ -14,8 +14,6 @@ const checkIfCourseIsValid = (userFormData) => {
       .then((response) => {
         const html = response.data
         const $ = cheerio.load(html);
-        let classEmpty = false;
-        
         // Check if the course being requested is valid
         // Check if the course being requested is actually empty
         const list = [];
