@@ -15,6 +15,10 @@ const checkCourseStatus = (courseArray) => {
         const $ = cheerio.load(html);
 
         // Check if the course being requested is actually empty
+        const list = [];
+        $('td strong').each(function(i, e) {
+          list[i] = $(this).text();
+        })
         $('td strong').each(function(i, e) {
           if (i === 0 && $(this).text() != '0') {
             console.log('empty', $(this).text());
@@ -23,7 +27,7 @@ const checkCourseStatus = (courseArray) => {
           } else if (i === 0 && $(this).text() == '0') {
             console.log(i, 'Is still full');
           }
-        })  
+        })    
     })
     .catch((error) => {
       console.log(error);
