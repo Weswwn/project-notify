@@ -4,7 +4,7 @@ const axios = require('axios');
 
 const checkIfCourseIsValid = (userFormData) => {
   return new Promise((resolve, reject) => {
-    const { subject, course, section, generalSeat, restrictedSeat, phoneNumber } = userFormData.data
+    const { subject, course, section, generalSeat, restrictedSeat } = userFormData.data
     axios.get(`https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-section&dept=${subject}&course=${course}&section=${section}`, {
       params: {
         generalSeat: generalSeat,
@@ -15,27 +15,42 @@ const checkIfCourseIsValid = (userFormData) => {
         const html = response.data
         const $ = cheerio.load(html);
         let classEmpty = false;
-
-        // Check if the course being requested is actually empty
-        $('td strong').each(function(i, e) {
-          if (i === 0 && $(this).text() === '0') {
-            classEmpty = true;
-          }
-        })
+        
         // Check if the course being requested is valid
-        $('strong').each(function(i, e) {
-          if($(this).text() === 'Seat Summary' && classEmpty) {
-            console.log($(this).text());
-            resolve(true);
-            return;
-          } else if ($(this).text() === 'Seat Summary' && classEmpty === false) {
-            console.log('Not Empty Error: ', $(this).text());
-            resolve('NotEmpty');
-            return;
-          }
+        // Check if the course being requested is actually empty
+        const list = [];
+        if ($('td strong').text().length === 0) {
+          reject(error);
+          return;
+        }
+        $('td strong').each(function(i, e) {
+          list[i] = $(this).text();
         })
-        // If the class doesn't exist
-        reject(false);
+        if (generalSeat && restrictedSeat) {
+          if (list[2] == '0' && list[3] == '0') {
+            resolve(true);
+          } else {
+            resolve('NotEmpty');
+          }
+        } else if (generalSeat == false && restrictedSeat == false) {
+          if (list[2] == '0' && list[3] == '0') {
+            resolve(true);
+          } else {
+            resolve('NotEmpty');
+          }
+        } else if (generalSeat) {
+          if (list[2] == '0') {
+            resolve(true);
+          } else {
+            resolve('NotEmpty');
+          }
+        } else if (restrictedSeat) {
+          if (list[3] == '0') {
+            resolve(true);
+          } else {
+            resolve('NotEmpty');
+          }
+        }
       })
       .catch((error) => {
         reject(error);
