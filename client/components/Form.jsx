@@ -46,14 +46,12 @@ class Form extends React.Component {
         phoneNumber: Number(e.target.value)
       })
     }
-    if (subject.length === 0 || course.length === 0 || section.length === 0
-      || phoneNumber.length === 0) {
-      this.setState({
-        courseFull: false,
-        courseNotValid: false,
-        alreadyRegistered: false
-      })
-    }
+    this.setState({
+      courseNotValid: false,
+      alreadyRegistered: false,
+      courseFull: false,
+      success: false
+    })
   }
 
   handleSubmit(e) {
