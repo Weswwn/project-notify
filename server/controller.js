@@ -90,8 +90,29 @@ const registerNumber = (userFormData) => {
   })
 }
 
+const getAccounts = (subject, course, section) => {
+  return new Promise((resolve, reject) => {
+    let queryString = 'SELECT phone_number FROM course WHERE subject_code = $1 AND course_number = $2 AND section_number = $3';
+    pool
+      .connect()
+      .then(client => {
+        return client
+          .query(queryString, [subject, course, section])
+          .then(res => {
+            resolve(res.rows)
+            client.release();
+          })
+      })
+      .catch(e => {
+        client.release()
+        reject(e.stack);
+      })
+  })
+}
+
 module.exports = {
   checkIfNumberExists: checkIfNumberExists,
   checkIfCourseIsValid: checkIfCourseIsValid,
-  registerNumber: registerNumber
+  registerNumber: registerNumber,
+  getAccounts: getAccounts
 }
