@@ -5,10 +5,12 @@ const checkCourseStatus = (courseArray) => {
   // Go through each course and check if the number of seats have gone above 0.
     // If it HAS increased then we need to send out a SMS text message to all students (query) that
     // registered for that course and remove them from the database (delete query)
-  courseArray.forEach(course => {
+  courseArray.forEach((course, i) => {
     const subject = course.subject_code;
     const courseNum = course.course_number;
     const section = course.section_number;
+    const restrictedSeats = course.restricted_seat;
+    const generalSeats = course.general_seat;
     axios.get(`https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-section&dept=${subject}&course=${courseNum}&section=${section}`)
       .then((response) => {
         const html = response.data
@@ -19,15 +21,31 @@ const checkCourseStatus = (courseArray) => {
         $('td strong').each(function(i, e) {
           list[i] = $(this).text();
         })
-        $('td strong').each(function(i, e) {
-          if (i === 0 && $(this).text() != '0') {
-            console.log('empty', $(this).text());
-            queryListOfNumbersForCourse(subject, courseNum, section);
-            return;
-          } else if (i === 0 && $(this).text() == '0') {
-            console.log(i, 'Is still full');
+        // $('td strong').each(function(i, e) {
+        //   if (i === 0 && $(this).text() != '0') {
+        //     console.log('empty', $(this).text());
+        //     queryListOfNumbersForCourse(subject, courseNum, section, restrictedSeats, generalSeats);
+        //     return;
+        //   } else if (i === 0 && $(this).text() == '0') {
+        //     console.log(i, 'Is still full');
+        //   }
+        // })   
+        if (list[0] === 0) return console.log(i, subject, courseNum, section, 'still full'); 
+        if (restrictedSeats && generalSeats) {
+          if (list[0] !== '0') {
+            queryListOfNumbersForCourse(subject, courseNum, section, restrictedSeats, generalSeats);
           }
-        })    
+        } else if (restrictedSeats) {
+          if (list[3] !== '0') {
+            queryListOfNumbersForCourse(subject, courseNum, section, restrictedSeats, generalSeats);
+          }
+        } else if (generalSeats) {
+          if (list[2] !== '0') {
+            queryListOfNumbersForCourse(subject, courseNum, section, restrictedSeats, generalSeats);
+          }
+        } else if (restrictedSeats === false && generalSeats === false) {
+          queryListOfNumbersForCourse(subject, courseNum, section, restrictedSeats, generalSeats);
+        }
     })
     .catch((error) => {
       console.log(error);
@@ -35,12 +53,14 @@ const checkCourseStatus = (courseArray) => {
   })
 }
 
-const queryListOfNumbersForCourse = (subject, courseNum, section) => {
+const queryListOfNumbersForCourse = (subject, courseNum, section, restricted_seat, general_seat) => {
   axios.get('/api/getCourses' , {
     params: {
       subject_code: subject,
       course_number: courseNum,
-      section_number: section
+      section_number: section,
+      restricted_seat: restricted_seat,
+      general_seat: general_seat
     }
   })
   .then((response) => {
