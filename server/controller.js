@@ -26,7 +26,7 @@ const checkIfCourseIsValid = (userFormData) => {
           list[i] = $(this).text();
         })
         if (generalSeat && restrictedSeat) {
-          if (list[2] == '0' && list[3] == '0') {
+          if (list[0] == '0') {
             resolve(true);
           } else {
             resolve('NotEmpty');
@@ -106,14 +106,14 @@ const registerNumber = (userFormData) =>
       })
     })
 
-const getAccounts = (subject, course, section) => {
+const getAccounts = (subject, course, section, restrictedSeat, generalSeat) => {
   return new Promise((resolve, reject) => {
-    let queryString = 'SELECT phone_number FROM course WHERE subject_code = $1 AND course_number = $2 AND section_number = $3';
+    let queryString = 'SELECT phone_number FROM course WHERE subject_code = $1 AND course_number = $2 AND section_number = $3 AND restricted_seat = $4 AND general_seat = $5';
     pool
       .connect()
       .then(client => {
         return client
-          .query(queryString, [subject, course, section])
+          .query(queryString, [subject, course, section, restrictedSeat, generalSeat])
           .then(res => {
             resolve(res.rows)
             client.release();
