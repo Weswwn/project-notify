@@ -1,5 +1,6 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
+const { sendSMSMessage } = require('./smsController.js');
 
 const checkCourseStatus = (courseArray) => {
   // Go through each course and check if the number of seats have gone above 0.
@@ -61,6 +62,10 @@ const queryListOfNumbersForCourse = (subject, courseNum, section, restricted_sea
     console.log(response.data);
     // Here we need to send out the SMS text messages and remove
     // Those phone numbers from the database
+    response.data.forEach(obj => {
+      sendSMSMessage(obj.phone_number, subject, courseNum, section, restricted_seat, general_seat);
+    })
+
   })
   .catch((error) => {
     console.log('From sendNotifications', error);
