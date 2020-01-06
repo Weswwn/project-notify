@@ -21,16 +21,8 @@ const checkCourseStatus = (courseArray) => {
         $('td strong').each(function(i, e) {
           list[i] = $(this).text();
         })
-        // $('td strong').each(function(i, e) {
-        //   if (i === 0 && $(this).text() != '0') {
-        //     console.log('empty', $(this).text());
-        //     queryListOfNumbersForCourse(subject, courseNum, section, restrictedSeats, generalSeats);
-        //     return;
-        //   } else if (i === 0 && $(this).text() == '0') {
-        //     console.log(i, 'Is still full');
-        //   }
-        // })   
-        if (list[0] === 0) return console.log(i, subject, courseNum, section, 'still full'); 
+
+        if (list[0] == '0') return console.log(i, subject, courseNum, section, restrictedSeats, generalSeats, 'still full'); 
         if (restrictedSeats && generalSeats) {
           if (list[0] !== '0') {
             queryListOfNumbersForCourse(subject, courseNum, section, restrictedSeats, generalSeats);
@@ -44,7 +36,9 @@ const checkCourseStatus = (courseArray) => {
             queryListOfNumbersForCourse(subject, courseNum, section, restrictedSeats, generalSeats);
           }
         } else if (restrictedSeats === false && generalSeats === false) {
-          queryListOfNumbersForCourse(subject, courseNum, section, restrictedSeats, generalSeats);
+          if (list[0] !== '0') {
+            queryListOfNumbersForCourse(subject, courseNum, section, restrictedSeats, generalSeats);
+          }
         }
     })
     .catch((error) => {
@@ -54,7 +48,7 @@ const checkCourseStatus = (courseArray) => {
 }
 
 const queryListOfNumbersForCourse = (subject, courseNum, section, restricted_seat, general_seat) => {
-  axios.get('/api/getCourses' , {
+  axios.get('http://localhost:3000/api/getCourses' , {
     params: {
       subject_code: subject,
       course_number: courseNum,
@@ -64,7 +58,9 @@ const queryListOfNumbersForCourse = (subject, courseNum, section, restricted_sea
     }
   })
   .then((response) => {
-    console.log('check', response);
+    console.log(response.data);
+    // Here we need to send out the SMS text messages and remove
+    // Those phone numbers from the database
   })
   .catch((error) => {
     console.log('From sendNotifications', error);
