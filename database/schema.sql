@@ -11,5 +11,5 @@ CREATE TABLE course (
   phone_number bigint,
   restricted_seat boolean,
   general_seat boolean,
-  PRIMARY KEY (phone_number, subject_code, course_number, section_number)
-);  
+  PRIMARY KEY (phone_number, subject_code, course_number, section_number, general_seat, restricted_seat)
+);

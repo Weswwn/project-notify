@@ -1,10 +1,9 @@
 const express = require('express')
 const app = express()
 const morgan = require('morgan');
-const { checkIfNumberExists, checkIfCourseIsValid,
-        registerNumber } = require('./controller.js');
+const { checkIfNumberExists, checkIfCourseIsValid, registerNumber, getAccounts } = require('./controller.js');
 const port = 3000;
-const checkDatabase = require('./courseCheck.js');
+const getRequestedCourses = require('./getRequestedCourses.js');
 
 app.use(express.static('public'));
 app.use(express.json());
@@ -40,7 +39,19 @@ app.post('/api/webscrape' , (req, res) => {
       res.send(response);
     })
     .catch((error) => {
+      console.log('error', error);
       res.send(error);
+    })
+})
+
+app.get('/api/getCourses', (req, res) => {
+  const { subject_code, course_number, section_number, restricted_seat, general_seat } = req.query;
+  getAccounts(subject_code, course_number, section_number, restricted_seat, general_seat)
+    .then((response) => {
+      res.send(response);
+    })
+    .catch((error) => {
+      res.status(400).send(error);
     })
 })
 
