@@ -112,6 +112,7 @@ const getAccounts = (subject, course, section, restrictedSeat, generalSeat) => {
     pool
       .connect()
       .then(client => {
+        console.log(subject, course, section, restrictedSeat, generalSeat)
         return client
           .query(queryString, [subject, course, section, restrictedSeat, generalSeat])
           .then(res => {
