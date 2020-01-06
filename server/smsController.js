@@ -9,7 +9,7 @@ const sendSMSMessage = (phoneNumber, subject, courseNum, section, restricted_sea
     to: `${Number(phoneNumber)}`
   })
   .then(message => {
-    console.log(message.sid)
+    removeNotifiedCourses(subject, courseNum, section, restricted_seat, general_seat);
   });
 }
 
