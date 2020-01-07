@@ -23,7 +23,7 @@ const checkCourseStatus = (courseArray) => {
           list[i] = $(this).text();
         })
 
-        if (list[0] == '0') return console.log(i, subject, courseNum, section, restrictedSeats, generalSeats, 'still full'); 
+        if (list[2] == '0' || list[3] == '0') return console.log(i, subject, courseNum, section, restrictedSeats, generalSeats, 'still full'); 
         if (restrictedSeats && generalSeats) {
           if (list[0] !== '0') {
             queryListOfNumbersForCourse(subject, courseNum, section, restrictedSeats, generalSeats);
