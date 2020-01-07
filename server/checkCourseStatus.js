@@ -23,22 +23,30 @@ const checkCourseStatus = (courseArray) => {
           list[i] = $(this).text();
         })
 
-        if (list[2] == '0' || list[3] == '0') return console.log(i, subject, courseNum, section, restrictedSeats, generalSeats, 'still full'); 
+        // if (list[2] == '0' || list[3] == '0') return console.log(i, subject, courseNum, section, restrictedSeats, generalSeats, 'still full'); 
         if (restrictedSeats && generalSeats) {
           if (list[0] !== '0') {
             queryListOfNumbersForCourse(subject, courseNum, section, restrictedSeats, generalSeats);
+          } else {
+            console.log(i, subject, courseNum, section, restrictedSeats, generalSeats, 'still full');
           }
         } else if (restrictedSeats) {
           if (list[3] !== '0') {
             queryListOfNumbersForCourse(subject, courseNum, section, restrictedSeats, generalSeats);
+          } else {
+            console.log(i, subject, courseNum, section, restrictedSeats, generalSeats, 'still full');
           }
         } else if (generalSeats) {
           if (list[2] !== '0') {
             queryListOfNumbersForCourse(subject, courseNum, section, restrictedSeats, generalSeats);
+          } else {
+            console.log(i, subject, courseNum, section, restrictedSeats, generalSeats, 'still full');
           }
         } else if (restrictedSeats === false && generalSeats === false) {
           if (list[0] !== '0') {
             queryListOfNumbersForCourse(subject, courseNum, section, restrictedSeats, generalSeats);
+          } else {
+            console.log(i, subject, courseNum, section, restrictedSeats, generalSeats, 'still full');
           }
         }
     })
