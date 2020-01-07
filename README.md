@@ -4,4 +4,6 @@ A notification service that relieves UBC students with the problem of manually c
 ## Tech Stack
 1. Front End - ReactJS, Styled-Components
 2. Back End - NodeJS, Express, Cheerio (Web Scraping)
-3. Database - PostgreSQL
+4. Cheerio Library - Web scraping functionality
+5. Twilio SMS API - SMS notification feature
+6. Database - PostgreSQL
