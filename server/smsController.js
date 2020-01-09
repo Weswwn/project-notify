@@ -3,7 +3,6 @@ const { removeNotifiedCourses } = require('./removeNotifiedCourses.js');
 
 const sendSMSMessage = (phoneNumber, subject, courseNum, section, restricted_seat, general_seat) => {
   let capitalSubject = subject.toUpperCase();
-  console.log(capitalSubject);
   client.messages
   .create({
     body: 
@@ -12,7 +11,7 @@ const sendSMSMessage = (phoneNumber, subject, courseNum, section, restricted_sea
     to: `${Number(phoneNumber)}`
   })
   .then(message => {
-    console.log(message.sid);
+    console.log(message.date_sent);
     removeNotifiedCourses(subject, courseNum, section, restricted_seat, general_seat);
   });
 }
