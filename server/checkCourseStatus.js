@@ -69,7 +69,7 @@ const queryListOfNumbersForCourse = (subject, courseNum, section, restricted_sea
   .then((response) => {
     // Here we need to send out the SMS text messages and remove
     // Those phone numbers from the database
-    response.data.forEach(obj => {
+    response.data.forEach((obj, i) => {
       sendSMSMessage(obj.phone_number, subject, courseNum, section, restricted_seat, general_seat);
     })
 
