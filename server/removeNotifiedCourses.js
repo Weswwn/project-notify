@@ -8,7 +8,7 @@ const removeNotifiedCourses = (subject, courseNum, section, restricted, general)
         return client
           .query(queryString, [subject, courseNum, section, restricted, general])
           .then(res => {
-            console.log('From removeNotifications:', res);
+            console.log('From removeNotifications:', res.rowCount);
             client.release();
           })
       })
