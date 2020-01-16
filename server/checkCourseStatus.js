@@ -23,6 +23,7 @@ const checkCourseStatus = (courseArray) => {
           list[i] = Number($(this).text());
         })
 
+        // Refactor this section
         if (restrictedSeats && generalSeats) {
           if (list[0] > 0) {
             queryListOfNumbersForCourse(subject, courseNum, section, restrictedSeats, generalSeats);
