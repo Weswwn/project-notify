@@ -12,7 +12,7 @@ const sendSMSMessage = (phoneNumber, subject, courseNum, section, restricted_sea
   })
   .then(message => {
     console.log(message.date_sent);
-    removeNotifiedCourses(subject, courseNum, section, restricted_seat, general_seat);
+    removeNotifiedCourses(phoneNumber, subject, courseNum, section, restricted_seat, general_seat);
   });
 }
 
