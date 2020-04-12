@@ -12,6 +12,8 @@ const checkCourseStatus = (courseArray) => {
     const section = course.section_number;
     const restrictedSeats = course.restricted_seat;
     const generalSeats = course.general_seat;
+    const winterUrl = `https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-section&dept=${subject}&course=${courseNum}&section=${section}`
+    const summerUrl = `https://courses.students.ubc.ca/cs/courseschedule?sesscd=S&pname=subjarea&tname=subj-section&sessyr=2020&course=${courseNum}&section=${section}&dept=${subject}`
     axios.get(`https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-section&dept=${subject}&course=${courseNum}&section=${section}`)
       .then((response) => {
         const html = response.data
@@ -24,11 +26,7 @@ const checkCourseStatus = (courseArray) => {
         })
 
         // Refactor this section
-        if (restrictedSeats && generalSeats) {
-          if (list[0] > 0) {
-            queryListOfNumbersForCourse(subject, courseNum, section, restrictedSeats, generalSeats);
-          }
-        } else if (restrictedSeats) {
+        if (restrictedSeats) {
           if (list[3] > 0) {
             queryListOfNumbersForCourse(subject, courseNum, section, restrictedSeats, generalSeats);
           }
