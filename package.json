@@ -4,26 +4,26 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.19.2",
     "cheerio": "^1.0.0-rc.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "morgan": "^1.9.1",
-    "nodemon": "^1.19.3",
+    "morgan": "^1.10.0",
+    "nodemon": "^1.19.4",
     "path": "^0.12.7",
-    "pg": "^7.14.0",
-    "react": "^16.10.2",
-    "react-dom": "^16.10.2",
+    "pg": "^7.18.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
     "styled-components": "^4.4.1",
-    "twilio": "^3.39.1"
+    "twilio": "^3.42.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.4",
-    "@babel/preset-env": "^7.6.3",
-    "@babel/preset-react": "^7.6.3",
-    "babel-loader": "^8.0.6",
-    "webpack": "^4.41.1",
-    "webpack-cli": "^3.3.9"
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/preset-react": "^7.9.4",
+    "babel-loader": "^8.1.0",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11"
   },
   "scripts": {
     "build:dev": "webpack --watch --mode development",

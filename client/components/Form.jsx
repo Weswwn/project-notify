@@ -12,6 +12,7 @@ class Form extends React.Component {
       subject: '',
       course: '',
       section: '',
+      term: '',
       generalSeat: false,
       restrictedSeat: false,
       phoneNumber: '',
@@ -125,6 +126,13 @@ class Form extends React.Component {
           <input type="text" onChange={this.handleOnChange} id="subject" name="Subject Code" placeholder="COMM" required maxLength="4" />
           <input type="text" onChange={this.handleOnChange} id="course" name="Course Number" placeholder="101" required maxLength="4" />
           <input type="text" onChange={this.handleOnChange} id="section" name="Course Section" placeholder="100" required maxLength="4" />
+
+          <br/>
+            Select Term:
+            <select id="term">
+              <option selected value="winter">Winter</option>
+              <option value="summer">Summer</option>
+            </select>
 
           <br/>
           General Seats: <input onClick={this.onClick} type="checkbox" name="seat" id="generalSeats"/>

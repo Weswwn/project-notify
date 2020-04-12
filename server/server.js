@@ -15,7 +15,7 @@ app.post('/api/webscrape' , (req, res) => {
     .then((response) => {
       if (response === true) {
         return checkIfNumberExists(req.body)
-      } else if (response === 'NotEmpty') {
+      } else if (response === 'notEmpty') {
         res.send(response);
       }
     })

@@ -29,25 +29,25 @@ const checkIfCourseIsValid = (userFormData) => {
           if (list[0] == '0') {
             resolve(true);
           } else {
-            resolve('NotEmpty');
+            resolve('notEmpty');
           }
         } else if (generalSeat == false && restrictedSeat == false) {
           if (list[2] == '0' && list[3] == '0') {
             resolve(true);
           } else {
-            resolve('NotEmpty');
+            resolve('notEmpty');
           }
         } else if (generalSeat) {
           if (list[2] == '0') {
             resolve(true);
           } else {
-            resolve('NotEmpty');
+            resolve('notEmpty');
           }
         } else if (restrictedSeat) {
           if (list[3] == '0') {
             resolve(true);
           } else {
-            resolve('NotEmpty');
+            resolve('notEmpty');
           }
         }
       })
